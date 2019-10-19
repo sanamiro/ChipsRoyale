@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
     private bool m_GoToCharaSelect = false;
     private bool m_GoToMainMenu = false;
     private bool m_OnCharaSelect = false;
+    private bool m_isStartable = false;
 
     private int[] m_playerPositionList = new int[4];            //contient la position dans le tableau de sélection de chaque joystick
     private List<int> m_playerControllerList;                   //contient la liste des joueurs prêts à jouer
@@ -39,6 +40,9 @@ public class MenuController : MonoBehaviour
 
                 if (Input.GetButtonUp("B" + i))
                     RemovePlayer(i);
+
+                if (Input.GetButtonUp("Start" + i) && m_isStartable)
+                    StartGame();
             }
         }
     }
@@ -114,7 +118,7 @@ public class MenuController : MonoBehaviour
             }
 
             if (m_playerControllerList.Count >= 2)                              //Si on a 2 joueurs ou plus
-                AddStartOption();                                               //On peut lancer la partie
+                m_isStartable = true;                                           //On peut lancer la partie
         }
     }
 
@@ -122,22 +126,18 @@ public class MenuController : MonoBehaviour
     {
         if (m_playerControllerList.Contains(playerId))
         {
-            Debug.Log("id : " + playerId + "pos : " + m_playerPositionList[playerId - 1]);
             playerVisuals[m_playerPositionList[playerId - 1]].SetActive(false);
             m_playerPositionList[playerId - 1] = 0;
             m_playerControllerList.Remove(playerId);
             if (m_playerControllerList.Count < 2)
-                RemoveStartOption();
+                m_isStartable = false;
         }
+        else
+            OnBackButton();
     }
 
-    private void AddStartOption()
+    private void StartGame()
     {
-
-    }
-
-    private void RemoveStartOption()
-    {
-
+        Debug.Log("START GAME");
     }
 }
