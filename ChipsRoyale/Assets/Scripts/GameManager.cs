@@ -6,7 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public List<int> playerList = new List<int>();
 
-
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);

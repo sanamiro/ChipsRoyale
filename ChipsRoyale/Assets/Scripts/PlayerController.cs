@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour
 
     // Components
     private Rigidbody rb;
-    
+
     // Variables
+    public int joystick;
+
     private Vector3 m_Velocity = Vector2.zero;
 
     private bool m_isJumping = false;
@@ -46,12 +48,12 @@ public class PlayerController : MonoBehaviour
     {
         m_Velocity = rb.velocity;
 
-        m_Velocity.x = Input.GetAxisRaw("Horizontal");
-        m_Velocity.z = Input.GetAxisRaw("Vertical");
+        m_Velocity.x = Input.GetAxisRaw("LeftAnalogX" + joystick);
+        m_Velocity.z = Input.GetAxisRaw("LeftAnalogY" + joystick);
 
         m_isJumping = m_Velocity.y < -0.01f || m_Velocity.y > 0.01f ? true : false;
 
-        if (Input.GetButtonDown("Jump") && !m_isJumping)
+        if (Input.GetButtonDown("Y" + joystick) && !m_isJumping)
         {
             if (m_inTheVerre)
             {
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("A1"))
+        if (Input.GetButtonUp("A" + joystick))
             Instantiate(HandController, transform.parent);
 
         // Look direction
@@ -161,7 +163,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = m_enemyHand.transform.position;
 
-        if (Input.GetButtonUp("B1"))
+        if (Input.GetButtonUp("B" + joystick))
             m_spamCounter++;
 
         if (m_spamCounter > 10 && m_isInHand)
