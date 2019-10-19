@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("B1"))
             m_spamCounter++;
 
-        if (m_spamCounter > 15 && m_isInHand)
+        if (m_spamCounter > 10 && m_isInHand)
             m_isInHand = false;
     }
 }

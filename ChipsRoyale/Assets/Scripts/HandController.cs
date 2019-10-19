@@ -7,6 +7,8 @@ public class HandController : MonoBehaviour
     private bool m_isPickingDown = true;
     private bool m_isPickingUp = false;
 
+    public GameObject ShadowCreater;
+
     void Start()
     {
         
@@ -17,6 +19,7 @@ public class HandController : MonoBehaviour
     {
         if (Input.GetButtonUp("A1"))
         {
+            Debug.Log("testos");
             m_isPickingDown = true;
         }
 
@@ -30,7 +33,10 @@ public class HandController : MonoBehaviour
     public void PickDownChips()
     {
         if (m_isPickingDown && transform.localPosition.y > 0.5f)
+        {
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - 0.25f, transform.localPosition.z);
+
+        }
         else if (m_isPickingDown && transform.localPosition.y <= 0.5f)
         {
             m_isPickingDown = false;
@@ -42,7 +48,7 @@ public class HandController : MonoBehaviour
     public void PickUpChips()
     {
         if (m_isPickingUp && transform.localPosition.y < 10.0f)
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.1f, transform.localPosition.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.05f, transform.localPosition.z);
         else if (m_isPickingUp && transform.localPosition.y >= 10.0f)
         {
             m_isPickingUp = false;
