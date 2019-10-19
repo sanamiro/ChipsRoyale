@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    //Movement
-    public Rigidbody RigidBody;
-    public BoxCollider Collider;
+    private Rigidbody rb;
     
     private Vector3 m_Velocity = Vector2.zero;
 
     private bool m_isJumping = false;
 
-    void Start()
+    private float m_speed = 2f;
+    private float m_jumpHeight = 6f;
+
+    void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+
         if (Input.GetJoystickNames().Length != 0)
         {
             if (Input.GetJoystickNames().GetValue(0).ToString() != "")
@@ -29,39 +31,43 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        m_Velocity = rb.velocity;
+
         m_Velocity.x = Input.GetAxisRaw("Horizontal");
         m_Velocity.z = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButtonUp("Jump") && !m_isJumping)
+        m_isJumping = m_Velocity.y != 0 ? true : false;
+
+        if (Input.GetButtonDown("Jump") && !m_isJumping)
         {
-            m_Velocity.y = 1;
-            m_isJumping = true;
-        }
-        if (m_isJumping)
-        {
-            m_Velocity.y = m_Velocity.y - 0.1f;
+            m_Velocity.y = m_jumpHeight;
         }
 
-        m_Velocity.Normalize();
+        if (m_Velocity.x != 0 || m_Velocity.z != 0)
+        {
+            float lookingAt = Mathf.Atan2(m_Velocity.x, m_Velocity.z);
+            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, lookingAt * Mathf.Rad2Deg, transform.eulerAngles.z);
+        }
     }
 
     private void FixedUpdate()
     {
-        Move(m_Velocity * 2.5f);
+        rb.velocity = new Vector3(m_Velocity.x * m_speed, m_Velocity.y, m_Velocity.z * m_speed);
     }
-
-
-    private void Move(Vector3 targetSpeed)
+    
+    private void OnTriggerEnter(Collider other)
     {
-        RigidBody.velocity = new Vector3(targetSpeed.x, targetSpeed.y, targetSpeed.z);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (m_isJumping)
+        if (other.gameObject.tag.Equals("Flaque"))
         {
-            m_Velocity.y = 0;
-            m_isJumping = false;
+            m_speed--;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Flaque"))
+        {
+            m_speed++;
         }
     }
 }
