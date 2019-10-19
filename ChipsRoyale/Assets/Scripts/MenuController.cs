@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
@@ -17,6 +18,8 @@ public class MenuController : MonoBehaviour
     private bool m_GoToMainMenu = false;
     private bool m_OnCharaSelect = false;
     private bool m_isStartable = false;
+
+    private GameManager m_gameManager;
 
     private int[] m_playerPositionList = new int[4];            //contient la position dans le tableau de sélection de chaque joystick
     private List<int> m_playerControllerList;                   //contient la liste des joueurs prêts à jouer
@@ -139,5 +142,10 @@ public class MenuController : MonoBehaviour
     private void StartGame()
     {
         Debug.Log("START GAME");
+        if (m_gameManager == null)
+            m_gameManager = FindObjectOfType<GameManager>();
+        if (m_gameManager != null)
+            m_gameManager.playerList = m_playerControllerList;
+        SceneManager.LoadScene(1);
     }
 }

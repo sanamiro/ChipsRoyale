@@ -59,5 +59,12 @@ public class HandController : MonoBehaviour
         m_isPickingDown = true;
     }
 
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Verre"))
+        {
+            m_isPickingDown = false;
+            m_isPickingUp = true;
+        }
+    }
 }
