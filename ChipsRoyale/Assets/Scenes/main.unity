@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 16078949}
   - component: {fileID: 16078948}
   - component: {fileID: 16078947}
+  - component: {fileID: 16078951}
   - component: {fileID: 16078946}
   m_Layer: 0
   m_Name: playertest
@@ -154,7 +155,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &16078947
 BoxCollider:
@@ -229,6 +230,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16078951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16078945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4441568931216ec478364387ca3a0833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RigidBody: {fileID: 16078946}
+  Collider: {fileID: 16078947}
 --- !u!1 &153655749
 GameObject:
   m_ObjectHideFlags: 0
