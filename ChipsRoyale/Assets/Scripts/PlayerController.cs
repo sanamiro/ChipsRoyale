@@ -210,18 +210,18 @@ public class PlayerController : MonoBehaviour
         switch (m_healthPoints)
         {
             case 1:
-                GetComponent<MeshFilter>().sharedMesh = chips1hp;
+                transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh = chips1hp;
                 break;
 
             case 2:
-                GetComponent<MeshFilter>().sharedMesh = chips2hp;
+                transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh = chips2hp;
                 break;
 
             case 3:
             case 4:
             case 5:
             case 6:
-                GetComponent<MeshFilter>().sharedMesh = chips3hp;
+                transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh = chips3hp;
                 break;
         }
     }
