@@ -8,6 +8,7 @@ public class MainController : MonoBehaviour
     public int numberOfPlayers = 0;
     public GameManager gameManager;
     public GameObject ChipsPlayerPrefab;
+    public GameObject HandPrefab;
 
     private List<int> m_playerJoystickList = new List<int>();
 
@@ -29,7 +30,9 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
-        
+        float r = Random.Range(0.0f, 1.0f);
+        if (r > 0.99f)
+            SpawnHand();
     }
 
     public void PlayerDied(int joystickId)
@@ -42,5 +45,14 @@ public class MainController : MonoBehaviour
             Debug.Log("PLAYER " + playerWinner + " WON");
             SceneManager.LoadScene(0);
         }
+    }
+
+    private void SpawnHand()
+    {
+        float x = Random.Range(-5.0f, 5.0f);
+        float y = Random.Range(-5.0f, 5.0f);
+
+        GameObject hand = Instantiate(HandPrefab, this.transform.parent);
+        hand.transform.position = new Vector3(x, 0, y);
     }
 }
