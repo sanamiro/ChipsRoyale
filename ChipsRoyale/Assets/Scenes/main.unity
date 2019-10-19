@@ -209,7 +209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &722011879
 GameObject:
@@ -292,7 +292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!1 &1041421041
 GameObject:
@@ -402,7 +402,7 @@ PrefabInstance:
     - target: {fileID: 498637293180027837, guid: 594a7f4e3241c68488bf64288109125c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2755404517198226188, guid: 594a7f4e3241c68488bf64288109125c,
         type: 3}
@@ -487,6 +487,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1306671179}
+  - component: {fileID: 1306671180}
   m_Layer: 0
   m_Name: MainController
   m_TagString: Untagged
@@ -506,8 +507,24 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1306671180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306671178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d9ca5a0e78cd44f97d866034997d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  gameManager: {fileID: 0}
+  ChipsPlayerPrefab: {fileID: 498637293180027837, guid: 594a7f4e3241c68488bf64288109125c,
+    type: 3}
 --- !u!1 &1876027734
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +641,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chips_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 498637293180027837, guid: 594a7f4e3241c68488bf64288109125c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2755404517198226188, guid: 594a7f4e3241c68488bf64288109125c,
         type: 3}

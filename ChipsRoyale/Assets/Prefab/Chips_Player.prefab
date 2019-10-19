@@ -76,6 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4441568931216ec478364387ca3a0833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HandController: {fileID: 0}
+  healthBonus: {fileID: 8452362436485575291, guid: a8a026e35937aa14bb2c48ff09b6ee81,
+    type: 3}
+  joystick: 0
 --- !u!114 &3167851615184656999
 MonoBehaviour:
   m_ObjectHideFlags: 0

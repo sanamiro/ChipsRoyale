@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Prefabs
-    public GameObject HandController;
     public GameObject healthBonus;
     private GameObject m_enemyHand;
     private GameObject m_verre;
@@ -17,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public int joystick;
 
     private Vector3 m_Velocity = Vector2.zero;
+    private MainController m_mainController;
 
     private bool m_isJumping = false;
     private bool m_isInHand = false;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
         m_isJumping = m_Velocity.y < -0.01f || m_Velocity.y > 0.01f ? true : false;
 
-        if (Input.GetButtonDown("Y" + joystick) && !m_isJumping)
+        if (Input.GetButtonDown("A" + joystick) && !m_isJumping)
         {
             if (m_inTheVerre)
             {
@@ -66,9 +66,6 @@ public class PlayerController : MonoBehaviour
                 m_Velocity.y = m_jumpHeight;
             }
         }
-
-        if (Input.GetButtonUp("A" + joystick))
-            Instantiate(HandController, transform.parent);
 
         // Look direction
         if (m_Velocity.x != 0 || m_Velocity.z != 0)
@@ -188,6 +185,11 @@ public class PlayerController : MonoBehaviour
         float z = Random.Range(-5f, 5f);
 
         Instantiate(healthBonus, new Vector3(x, 0f, z), Quaternion.identity);
+
+        if (m_mainController == null)
+            m_mainController = FindObjectOfType<MainController>();
+        if (m_mainController != null)
+            m_mainController.PlayerDied(joystick);
 
         Destroy(gameObject);
     }
