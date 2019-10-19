@@ -44,7 +44,7 @@ public class HandController : MonoBehaviour
         if (m_isPickingUp && transform.localPosition.y < 10.0f)
         {
             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.05f, transform.localPosition.z);
-            ShadowCreater.transform.localScale = new Vector3(ShadowCreater.transform.localScale.x - 0.01f, ShadowCreater.transform.localScale.y, ShadowCreater.transform.localScale.z - 0.01f);
+            ShadowCreater.transform.localScale = new Vector3(ShadowCreater.transform.localScale.x - 0.0075f, ShadowCreater.transform.localScale.y, ShadowCreater.transform.localScale.z - 0.0075f);
         }
         else if (m_isPickingUp && transform.localPosition.y >= 10.0f)
         {
@@ -55,7 +55,7 @@ public class HandController : MonoBehaviour
 
     private IEnumerator WaitBeforeAttack()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         m_isPickingDown = true;
     }
 
