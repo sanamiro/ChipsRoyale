@@ -76,8 +76,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4441568931216ec478364387ca3a0833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HandController: {fileID: 0}
   healthBonus: {fileID: 8452362436485575291, guid: a8a026e35937aa14bb2c48ff09b6ee81,
+    type: 3}
+  chips3hp: {fileID: -7553716758358721678, guid: 41ac5da172c55eb4fb71dc1b5139cce3,
+    type: 3}
+  chips2hp: {fileID: -7553716758358721678, guid: 02573eaba47e75845b8ace9f9b85b97b,
+    type: 3}
+  chips1hp: {fileID: 9115022969396847060, guid: ba44269fa17717b428a3fe3c6239c93c,
     type: 3}
   joystick: 0
 --- !u!114 &3167851615184656999

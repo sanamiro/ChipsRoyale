@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     // Prefabs
     public GameObject healthBonus;
+    public Mesh chips3hp;
+    public Mesh chips2hp;
+    public Mesh chips1hp;
+
     private GameObject m_enemyHand;
     private GameObject m_verre;
 
@@ -115,13 +119,18 @@ public class PlayerController : MonoBehaviour
         {
             m_healthPoints--;
             Debug.Log("DAMAGE: Current health is " + m_healthPoints);
+
+            CheckMesh();
         }
 
         if (other.gameObject.tag.Equals("HealthBonus"))
         {
             m_healthPoints++;
             Debug.Log("HEALTH: Current health is " + m_healthPoints);
+
             Destroy(other.gameObject);
+
+            CheckMesh();
         }
 
         if (other.gameObject.tag.Equals("Verre"))
@@ -159,7 +168,7 @@ public class PlayerController : MonoBehaviour
         m_Velocity = new Vector3(0, 0, 0);
 
         transform.position = m_enemyHand.transform.position;
-
+        
         if (Input.GetButtonUp("B" + joystick))
             m_spamCounter++;
 
@@ -168,6 +177,8 @@ public class PlayerController : MonoBehaviour
             m_isInHand = false;
             m_healthPoints--;
             Debug.Log("ESCAPED HAND: Current health is " + m_healthPoints);
+
+            CheckMesh();
         }
     }
 
@@ -192,5 +203,26 @@ public class PlayerController : MonoBehaviour
             m_mainController.PlayerDied(joystick);
 
         Destroy(gameObject);
+    }
+
+    private void CheckMesh()
+    {
+        switch (m_healthPoints)
+        {
+            case 1:
+                GetComponent<MeshFilter>().sharedMesh = chips1hp;
+                break;
+
+            case 2:
+                GetComponent<MeshFilter>().sharedMesh = chips2hp;
+                break;
+
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+                GetComponent<MeshFilter>().sharedMesh = chips3hp;
+                break;
+        }
     }
 }
