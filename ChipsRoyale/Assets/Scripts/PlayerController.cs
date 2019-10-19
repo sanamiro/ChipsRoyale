@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     // Prefabs
     public GameObject HandController;
+    public GameObject healthBonus;
     private GameObject m_enemyHand;
     private GameObject m_verre;
 
@@ -82,17 +83,17 @@ public class PlayerController : MonoBehaviour
         if (m_healthPoints <= 0)
         {
             Debug.Log("DEATH: No health left");
-            Destroy(gameObject);
+            DestroyChips();
         }
         if (transform.position.y < -1f)
         {
             Debug.Log("DEATH: Fell out of the table");
-            Destroy(gameObject);
+            DestroyChips();
         }
         if (transform.position.y > 7.5f)
         {
             Debug.Log("DEATH: Got rekt by the hand");
-            Destroy(gameObject);
+            DestroyChips();
         }
     }
 
@@ -115,6 +116,13 @@ public class PlayerController : MonoBehaviour
         {
             m_healthPoints--;
             Debug.Log("DAMAGE: Current health is " + m_healthPoints);
+        }
+
+        if (other.gameObject.tag.Equals("HealthBonus"))
+        {
+            m_healthPoints++;
+            Debug.Log("HEALTH: Current health is " + m_healthPoints);
+            Destroy(other.gameObject);
         }
 
         if (other.gameObject.tag.Equals("Verre"))
@@ -166,5 +174,15 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = false;
         m_inTheVerre = false;
         m_verre = null;
+    }
+
+    private void DestroyChips()
+    {
+        float x = Random.Range(-5f, 5f);
+        float z = Random.Range(-5f, 5f);
+
+        Instantiate(healthBonus, new Vector3(x, 0f, z), Quaternion.identity);
+
+        Destroy(gameObject);
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Verre
   - Hand
   - Liquide
+  - HealthBonus
   layers:
   - Default
   - TransparentFX
