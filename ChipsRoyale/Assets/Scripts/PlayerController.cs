@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private float m_speed = 2f;
     private float m_jumpHeight = 6f;
 
+    private bool inVerre = false;
+
     private GameObject m_enemyHand;
 
     void Awake()
@@ -41,17 +43,24 @@ public class PlayerController : MonoBehaviour
         m_Velocity.x = Input.GetAxisRaw("Horizontal");
         m_Velocity.z = Input.GetAxisRaw("Vertical");
 
-        m_isJumping = m_Velocity.y != 0 ? true : false;
+        m_isJumping = m_Velocity.y < -0.01f || m_Velocity.y > 0.01f ? true : false;
 
         if (Input.GetButtonDown("Jump") && !m_isJumping)
         {
-            m_Velocity.y = m_jumpHeight;
+            if (inVerre)
+            {
+                transform.position += transform.forward * 2f;
+            }
+            else
+            {
+                m_Velocity.y = m_jumpHeight;
+            }
         }
 
+        // Look direction
         if (m_Velocity.x != 0 || m_Velocity.z != 0)
         {
-            float lookingAt = Mathf.Atan2(m_Velocity.x, m_Velocity.z);
-            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, lookingAt * Mathf.Rad2Deg, transform.eulerAngles.z);
+            transform.rotation = Quaternion.Euler(transform.eulerAngles.x, Mathf.Atan2(m_Velocity.x, m_Velocity.z) * Mathf.Rad2Deg, transform.eulerAngles.z);
         }
 
         if (m_isInHand)
@@ -60,6 +69,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_speed <= 0f) m_speed = 0.01f;
+
         rb.velocity = new Vector3(m_Velocity.x * m_speed, m_Velocity.y, m_Velocity.z * m_speed);
     }
     
@@ -69,7 +80,15 @@ public class PlayerController : MonoBehaviour
         {
             m_speed--;
         }
-        else if (other.gameObject.tag.Equals("Hand"))
+
+        if (other.gameObject.tag.Equals("Verre"))
+        {
+            transform.position = other.transform.position + Vector3.up;
+            rb.isKinematic = true;
+            inVerre = true;
+        }
+
+        if (other.gameObject.tag.Equals("Hand"))
         {
             m_enemyHand = other.gameObject;
             m_isInHand = true;
@@ -82,6 +101,12 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals("Flaque"))
         {
             m_speed++;
+        }
+
+        if (other.gameObject.tag.Equals("Verre"))
+        {
+            inVerre = false;
+            rb.isKinematic = false;
         }
     }
 
