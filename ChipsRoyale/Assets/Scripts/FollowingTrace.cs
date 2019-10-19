@@ -80,6 +80,5 @@ public class FollowingTrace : MonoBehaviour
     public void RemoveFlaque(GameObject go)
     {
         listFlaque.Remove(go);
-        Destroy(go);
     }
 }

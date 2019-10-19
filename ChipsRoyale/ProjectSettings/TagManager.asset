@@ -8,6 +8,7 @@ TagManager:
   - Flaque
   - Verre
   - Hand
+  - Liquide
   layers:
   - Default
   - TransparentFX

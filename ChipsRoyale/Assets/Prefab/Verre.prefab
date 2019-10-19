@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2105528133576311455}
   - component: {fileID: 3724896425882738234}
+  - component: {fileID: 3724896425882738236}
   m_Layer: 0
   m_Name: Verre
   m_TagString: Verre
@@ -46,6 +47,19 @@ CapsuleCollider:
   m_Height: 4.8
   m_Direction: 1
   m_Center: {x: 0, y: 1.2, z: 0}
+--- !u!114 &3724896425882738236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115200754903668476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 128a498564c4f6e458750508c248bcde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chips: {fileID: 0}
 --- !u!1001 &3724896425633850912
 PrefabInstance:
   m_ObjectHideFlags: 0

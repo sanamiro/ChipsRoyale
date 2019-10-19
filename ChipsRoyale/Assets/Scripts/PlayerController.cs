@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Components
+    // Prefabs
     public GameObject HandController;
+    private GameObject m_enemyHand;
+    private GameObject m_verre;
 
+    // Components
     private Rigidbody rb;
     
+    // Variables
     private Vector3 m_Velocity = Vector2.zero;
 
     private bool m_isJumping = false;
     private bool m_isInHand = false;
+    private bool m_inTheVerre = false;
 
     private int m_spamCounter = 0;
+    private int m_healthPoints = 3;
 
     private float m_speed = 2f;
     private float m_jumpHeight = 6f;
-
-    private GameObject m_verre;
-    private bool m_inTheVerre = false;
-
-    private GameObject m_enemyHand;
 
     void Awake()
     {
@@ -73,7 +74,26 @@ public class PlayerController : MonoBehaviour
         }
 
         if (m_isInHand)
+        {
             UpdateWhileCatched();
+        }
+
+        // Check if dead
+        if (m_healthPoints <= 0)
+        {
+            Debug.Log("DEATH: No health left");
+            Destroy(gameObject);
+        }
+        if (transform.position.y < -1f)
+        {
+            Debug.Log("DEATH: Fell out of the table");
+            Destroy(gameObject);
+        }
+        if (transform.position.y > 7.5f)
+        {
+            Debug.Log("DEATH: Got rekt by the hand");
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -88,6 +108,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals("Flaque"))
         {
             m_speed--;
+            Debug.Log("SLOW: Current speed is " + m_speed);
+        }
+
+        if (other.gameObject.tag.Equals("Liquide"))
+        {
+            m_healthPoints--;
+            Debug.Log("DAMAGE: Current health is " + m_healthPoints);
         }
 
         if (other.gameObject.tag.Equals("Verre"))

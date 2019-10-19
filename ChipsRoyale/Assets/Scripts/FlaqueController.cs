@@ -39,7 +39,12 @@ public class FlaqueController : MonoBehaviour
 
         if (timer <= 0f)
         {
-            parentChips.GetComponent<FollowingTrace>().RemoveFlaque(gameObject);
+            if (parentChips != null)
+            {
+                parentChips.GetComponent<FollowingTrace>().RemoveFlaque(gameObject);
+            }
+
+            Destroy(gameObject);
         }
     }
 
