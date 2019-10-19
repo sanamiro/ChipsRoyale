@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // Components
     private Rigidbody rb;
     
     private Vector3 m_Velocity = Vector2.zero;
@@ -16,7 +17,8 @@ public class PlayerController : MonoBehaviour
     private float m_speed = 2f;
     private float m_jumpHeight = 6f;
 
-    private bool inVerre = false;
+    private GameObject m_verre;
+    private bool m_inTheVerre = false;
 
     private GameObject m_enemyHand;
 
@@ -47,9 +49,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && !m_isJumping)
         {
-            if (inVerre)
+            if (m_inTheVerre)
             {
-                transform.position += transform.forward * 2f;
+                m_verre.GetComponent<VerreController>().RemoveChips();
+
+                EjectFromTheVerre(transform.forward * 2f);
             }
             else
             {
@@ -69,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_speed <= 0f) m_speed = 0.01f;
+        if (m_speed < 0.2f) m_speed = 0.2f;
 
         rb.velocity = new Vector3(m_Velocity.x * m_speed, m_Velocity.y, m_Velocity.z * m_speed);
     }
@@ -83,9 +87,16 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag.Equals("Verre"))
         {
+            other.gameObject.GetComponent<VerreController>().GetChips(gameObject);
+            
             transform.position = other.transform.position + Vector3.up;
             rb.isKinematic = true;
-            inVerre = true;
+            m_inTheVerre = true;
+            m_verre = other.gameObject;
+
+            //Vector3 dir = (transform.position - other.transform.position).normalized * 50f;
+            //dir = new Vector3(dir.x, 2f, dir.z);
+            //rb.AddForce(dir, ForceMode.Impulse);
         }
 
         if (other.gameObject.tag.Equals("Hand"))
@@ -102,12 +113,6 @@ public class PlayerController : MonoBehaviour
         {
             m_speed++;
         }
-
-        if (other.gameObject.tag.Equals("Verre"))
-        {
-            inVerre = false;
-            rb.isKinematic = false;
-        }
     }
 
     private void UpdateWhileCatched()
@@ -121,5 +126,13 @@ public class PlayerController : MonoBehaviour
 
         if (m_spamCounter > 15 && m_isInHand)
             m_isInHand = false;
+    }
+
+    public void EjectFromTheVerre(Vector3 direction)
+    {
+        transform.position += direction;
+        rb.isKinematic = false;
+        m_inTheVerre = false;
+        m_verre = null;
     }
 }
