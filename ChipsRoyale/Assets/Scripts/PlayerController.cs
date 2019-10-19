@@ -165,7 +165,11 @@ public class PlayerController : MonoBehaviour
             m_spamCounter++;
 
         if (m_spamCounter > 10 && m_isInHand)
+        {
             m_isInHand = false;
+            m_healthPoints--;
+            Debug.Log("ESCAPED HAND: Current health is " + m_healthPoints);
+        }
     }
 
     public void EjectFromTheVerre(Vector3 direction)
