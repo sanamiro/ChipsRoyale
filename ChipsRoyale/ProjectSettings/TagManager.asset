@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Undefined
   - Flaque
   - Verre
+  - Hand
   layers:
   - Default
   - TransparentFX

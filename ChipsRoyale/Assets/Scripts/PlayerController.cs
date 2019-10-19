@@ -9,11 +9,16 @@ public class PlayerController : MonoBehaviour
     private Vector3 m_Velocity = Vector2.zero;
 
     private bool m_isJumping = false;
+    private bool m_isInHand = false;
+
+    private int m_spamCounter = 0;
 
     private float m_speed = 2f;
     private float m_jumpHeight = 6f;
 
     private bool inVerre = false;
+
+    private GameObject m_enemyHand;
 
     void Awake()
     {
@@ -52,14 +57,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (m_isJumping) Debug.Log("Jumping");
-        Debug.Log(m_Velocity.y);
-
         // Look direction
         if (m_Velocity.x != 0 || m_Velocity.z != 0)
         {
             transform.rotation = Quaternion.Euler(transform.eulerAngles.x, Mathf.Atan2(m_Velocity.x, m_Velocity.z) * Mathf.Rad2Deg, transform.eulerAngles.z);
         }
+
+        if (m_isInHand)
+            UpdateWhileCatched();
     }
 
     private void FixedUpdate()
@@ -82,6 +87,13 @@ public class PlayerController : MonoBehaviour
             rb.isKinematic = true;
             inVerre = true;
         }
+
+        if (other.gameObject.tag.Equals("Hand"))
+        {
+            m_enemyHand = other.gameObject;
+            m_isInHand = true;
+            m_spamCounter = 0;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -96,5 +108,18 @@ public class PlayerController : MonoBehaviour
             inVerre = false;
             rb.isKinematic = false;
         }
+    }
+
+    private void UpdateWhileCatched()
+    {
+        m_Velocity = new Vector3(0, 0, 0);
+
+        transform.position = m_enemyHand.transform.position;
+
+        if (Input.GetButtonUp("B1"))
+            m_spamCounter++;
+
+        if (m_spamCounter > 15 && m_isInHand)
+            m_isInHand = false;
     }
 }
