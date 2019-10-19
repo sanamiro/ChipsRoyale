@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Components
+    public GameObject HandController;
+
     private Rigidbody rb;
     
     private Vector3 m_Velocity = Vector2.zero;
@@ -60,6 +62,9 @@ public class PlayerController : MonoBehaviour
                 m_Velocity.y = m_jumpHeight;
             }
         }
+
+        if (Input.GetButtonUp("A1"))
+            Instantiate(HandController, transform.parent);
 
         // Look direction
         if (m_Velocity.x != 0 || m_Velocity.z != 0)
@@ -124,7 +129,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("B1"))
             m_spamCounter++;
 
-        if (m_spamCounter > 15 && m_isInHand)
+        if (m_spamCounter > 10 && m_isInHand)
             m_isInHand = false;
     }
 
