@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public List<int> playerList = new List<int>();
+    public List<Color32> colorList = new List<Color32>();
 
     void Start()
     {
@@ -15,5 +16,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Endgame(int playerId)
+    {
+
     }
 }
