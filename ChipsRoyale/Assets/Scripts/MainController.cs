@@ -9,6 +9,7 @@ public class MainController : MonoBehaviour
     public GameManager gameManager;
     public GameObject ChipsPlayerPrefab;
     public GameObject HandPrefab;
+    public GameObject Liquide;
 
     private List<int> m_playerJoystickList = new List<int>();
 
@@ -34,6 +35,8 @@ public class MainController : MonoBehaviour
         float r = Random.Range(0.0f, 1.0f);
         if (r > 0.99f)
             SpawnHand();
+        if (r < 0.01f)
+            SpawnLiquide();
     }
 
     public void PlayerDied(int joystickId)
@@ -101,5 +104,15 @@ public class MainController : MonoBehaviour
 
         GameObject hand = Instantiate(HandPrefab, this.transform.parent);
         hand.transform.position = new Vector3(x, 0, y);
+    }
+
+    private void SpawnLiquide()
+    {
+
+        float x = Random.Range(-7.5f, 7.5f);
+        float y = Random.Range(-5.0f, 5.0f);
+        float r = Random.Range(0f, 360f);
+
+        Instantiate(Liquide, new Vector3(x, 0, y), Quaternion.Euler(0f, r, 0f));
     }
 }
