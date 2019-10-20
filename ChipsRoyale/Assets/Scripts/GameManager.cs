@@ -24,8 +24,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (videoFade && videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha > 0)
-            videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha--;
+        if (videoPlayer != null)
+        {
+            if (videoFade && videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha > 0)
+                videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha--;
+            if (videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha == 0)
+                videoFade = false;
+        }
     }
 
     public IEnumerator Endgame(int playerId)

@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour
     private bool m_isStartable = false;
 
     private GameManager m_gameManager;
+    private PlayAudio m_audioComp;
 
     private int[] m_playerPositionList = new int[4];            //contient la position dans le tableau de sélection de chaque joystick
     private List<int> m_playerControllerList;                   //contient la liste des joueurs prêts à jouer
@@ -29,6 +30,8 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         m_playerControllerList = new List<int>();
+
+        m_audioComp = Camera.main.GetComponent<PlayAudio>();
 
         for (int i = 0; i < 4; i++)                             //On initialise la pos de chaque joystick
             m_playerPositionList[i] = 0;                      //0 = joystick non activé sur l'écran de sélection
@@ -41,13 +44,22 @@ public class MenuController : MonoBehaviour
             for (int i = 1; i < 5; i++)
             {
                 if (Input.GetButtonUp("A" + i))
+                {
                     AddPlayer(i);
+                    m_audioComp.PlaySound(PlayAudio.Son.SelectMenu);
+                }
 
                 if (Input.GetButtonUp("B" + i))
+                {
                     RemovePlayer(i);
+                    m_audioComp.PlaySound(PlayAudio.Son.ClickMenu);
+                }
 
                 if (Input.GetButtonUp("Start" + i) && m_isStartable)
+                {
                     StartGame();
+                    m_audioComp.PlaySound(PlayAudio.Son.SelectMenu);
+                }
             }
         }
     }
@@ -87,7 +99,10 @@ public class MenuController : MonoBehaviour
     public void OnPlayButton()
     {
         if (mainMenu.activeSelf && !m_GoToCharaSelect && !m_GoToMainMenu)
+        {
             m_GoToCharaSelect = true;
+            m_audioComp.PlaySound(PlayAudio.Son.SelectMenu);
+        }
     }
 
     public void OnQuitButton()
@@ -103,6 +118,7 @@ public class MenuController : MonoBehaviour
             m_GoToMainMenu = true;
             m_OnCharaSelect = false;
             mainMenu.SetActive(true);
+            m_audioComp.PlaySound(PlayAudio.Son.ClickMenu);
         }
     }
 
