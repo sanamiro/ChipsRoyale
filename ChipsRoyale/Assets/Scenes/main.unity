@@ -938,7 +938,13 @@ MonoBehaviour:
     type: 3}
   HandPrefab: {fileID: 7948840621715487169, guid: e3d5e1a57baa447439e5c075a8caece6,
     type: 3}
+  Liquide: {fileID: 0}
   TextWin: {fileID: 517994581}
+  materialList:
+  - {fileID: 2100000, guid: ebf80a66e8109364da6f01a2495741b8, type: 2}
+  - {fileID: 2100000, guid: 39d12090bed0b3c4695acce5b7a72436, type: 2}
+  - {fileID: 2100000, guid: a5cfd057d85117541b4ae4969cac6e1a, type: 2}
+  - {fileID: 2100000, guid: ae16f766352a32c4e9b8a134947cf327, type: 2}
 --- !u!1 &1809959592
 GameObject:
   m_ObjectHideFlags: 0

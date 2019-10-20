@@ -603,6 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158546441}
   - component: {fileID: 158546442}
+  - component: {fileID: 158546443}
   m_Layer: 5
   m_Name: Video Player
   m_TagString: Untagged
@@ -637,7 +638,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158546440}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: d7b8764bedf048b4cb5f64a153862c5d, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 0ce2d1297cc62fd4cb11e674ad4aca76, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 97548825}
@@ -650,17 +651,31 @@ VideoPlayer:
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
-  m_TargetAudioSources: []
-  m_DirectAudioVolumes: []
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
   m_Url: 
-  m_EnabledAudioTracks: 
-  m_DirectAudioMutes: 
-  m_ControlledAudioTrackCount: 0
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
+--- !u!114 &158546443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158546440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7aab5c404576b44836be3d39a13ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &199195566
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerList: 
   colorList: []
+  videoPlayer: {fileID: 125918237}
 --- !u!4 &282745676
 Transform:
   m_ObjectHideFlags: 0
@@ -2024,6 +2040,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8132538531009388714, guid: b9d0e33ef9acd8a40b120928eb813357,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae16f766352a32c4e9b8a134947cf327, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d0e33ef9acd8a40b120928eb813357, type: 3}
 --- !u!1 &1412879414
@@ -2329,6 +2350,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8132538531009388714, guid: b9d0e33ef9acd8a40b120928eb813357,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 39d12090bed0b3c4695acce5b7a72436, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d0e33ef9acd8a40b120928eb813357, type: 3}
 --- !u!1 &1817307587
@@ -2656,5 +2682,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8132538531009388714, guid: b9d0e33ef9acd8a40b120928eb813357,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a5cfd057d85117541b4ae4969cac6e1a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9d0e33ef9acd8a40b120928eb813357, type: 3}

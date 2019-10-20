@@ -13,6 +13,8 @@ public class MainController : MonoBehaviour
     public GameObject Liquide;
     public GameObject TextWin;
 
+    public List<Material> materialList;
+
     private List<int> m_playerJoystickList = new List<int>();
     private PlayAudio m_audioComp;
 
@@ -28,7 +30,7 @@ public class MainController : MonoBehaviour
             {
                 GameObject playerCont = Instantiate(ChipsPlayerPrefab, this.transform.parent);
                 playerCont.GetComponentInChildren<PlayerController>().joystick = gameManager.playerList[i];
-                playerCont.GetComponentInChildren<Renderer>().material.color = Color.red;
+                playerCont.GetComponentInChildren<MeshRenderer>().material = materialList[i];
             }
         }
     }
