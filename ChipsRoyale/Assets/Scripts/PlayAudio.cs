@@ -72,6 +72,8 @@ public class PlayAudio : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        audioSource.volume = 0.2f;
     }
 
     private void Update()
