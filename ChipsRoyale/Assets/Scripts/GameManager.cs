@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
-        videoPlayer.SetActive(true);
+        Debug.Log("testos " + FindObjectsOfType<GameManager>().Length);
+        if (FindObjectsOfType<GameManager>().Length > 1)
+            Destroy(this.gameObject);
         StartCoroutine(StopVideo(13.5f));
     }
 
@@ -36,9 +37,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StopVideo(float videoLength)
     {
-        Debug.Log("testos");
+        yield return new WaitForSeconds(0.5f);
+        
+        DontDestroyOnLoad(this.gameObject);
+        videoPlayer.SetActive(true);
 
-        yield return new WaitForSeconds(videoLength);
+        yield return new WaitForSeconds(videoLength - 0.5f);
 
         videoFade = true;
     }
