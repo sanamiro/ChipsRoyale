@@ -23,7 +23,7 @@ public class MainController : MonoBehaviour
             for (int i = 0; i < numberOfPlayers; i++)
             {
                 GameObject playerCont = Instantiate(ChipsPlayerPrefab, this.transform.parent);
-                playerCont.GetComponent<PlayerController>().joystick = gameManager.playerList[i];
+                playerCont.GetComponentInChildren<PlayerController>().joystick = gameManager.playerList[i];
             }
         }
     }
