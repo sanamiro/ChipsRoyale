@@ -49,8 +49,54 @@ public class MainController : MonoBehaviour
 
     private void SpawnHand()
     {
-        float x = Random.Range(-5.0f, 5.0f);
+        // Modifier la position de spawn en fonction du coefHand du Player
+        GameObject mostSaucedChips = null;
+        GameObject lessSaucedChips = null;
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Chips"))
+        {
+            float sauce = go.GetComponent<PlayerController>().coefHand;
+            if (sauce > 1f) {
+                if (mostSaucedChips == null)
+                {
+                    mostSaucedChips = go;
+                }
+                else if (sauce > mostSaucedChips.GetComponent<PlayerController>().coefHand)
+                {
+                    mostSaucedChips = go;
+                }
+            }
+
+            if (sauce < 1f) {
+                if (lessSaucedChips == null)
+                {
+                    lessSaucedChips = go;
+                }
+                else if (sauce < lessSaucedChips.GetComponent<PlayerController>().coefHand)
+                {
+                    lessSaucedChips = go;
+                }
+            }
+        }
+
+        float x = Random.Range(-7.5f, 7.5f);
         float y = Random.Range(-5.0f, 5.0f);
+
+        if (mostSaucedChips == null)
+        {
+            if (lessSaucedChips != null)
+            {
+                while (Vector2.Distance(new Vector2(x, y), new Vector2(lessSaucedChips.transform.position.x, lessSaucedChips.transform.position.z)) < 2f)
+                {
+                    x = Random.Range(-7.5f, 7.5f);
+                    y = Random.Range(-5.0f, 5.0f);
+                }
+            }
+        }
+        else
+        {
+            x = Random.Range(-1.0f, 1.0f) + mostSaucedChips.transform.position.x;
+            y = Random.Range(-1.0f, 1.0f) + mostSaucedChips.transform.position.z;
+        }
 
         GameObject hand = Instantiate(HandPrefab, this.transform.parent);
         hand.transform.position = new Vector3(x, 0, y);

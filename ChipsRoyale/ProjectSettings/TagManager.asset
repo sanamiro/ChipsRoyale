@@ -10,6 +10,8 @@ TagManager:
   - Hand
   - Liquide
   - HealthBonus
+  - BolSauce
+  - Chips
   layers:
   - Default
   - TransparentFX

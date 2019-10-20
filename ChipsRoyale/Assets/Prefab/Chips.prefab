@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3167851615184656999}
   m_Layer: 0
   m_Name: Chips
-  m_TagString: Untagged
+  m_TagString: Chips
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,8 @@ MonoBehaviour:
     type: 3}
   chips1hp: {fileID: -7553716758358721678, guid: 4749989719416fb488d7251d243db8f2,
     type: 3}
-  joystick: 0
+  joystick: 1
+  coefHand: 1
 --- !u!114 &3167851615184656999
 MonoBehaviour:
   m_ObjectHideFlags: 0

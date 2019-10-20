@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool m_isJumping = false;
     private bool m_isInHand = false;
     private bool m_inTheVerre = false;
+    private bool m_isSauced = false;
 
     private int m_spamCounter = 0;
     private int m_healthPoints = 3;
@@ -32,8 +33,17 @@ public class PlayerController : MonoBehaviour
     private float m_speed = 2f;
     private float m_jumpHeight = 6f;
 
+    private const float m_timerSauced = 5f;
+    private float m_timerSauce = 0f;
+
+    // coef < 1 = moins de chance de se faire chopper
+    // coef > 1 = plus de chance de se faire chopper
+    public float coefHand = 1f;
+
     void Awake()
     {
+        m_timerSauce = m_timerSauced;
+
         rb = GetComponent<Rigidbody>();
 
         if (Input.GetJoystickNames().Length != 0)
@@ -102,11 +112,35 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_speed < 0.2f) m_speed = 0.2f;
+        if (m_isSauced)
+        {
+            m_timerSauce -= Time.deltaTime;
+
+            if (m_timerSauce <= 0f)
+            {
+                m_isSauced = false;
+                m_timerSauce = m_timerSauced;
+
+                coefHand = 1f;
+                Debug.Log("SAUCE: You are not saucé anymore");
+            }
+        }
+
+        if (m_speed < 0.25f) m_speed = 2f;
 
         rb.velocity = new Vector3(m_Velocity.x * m_speed, m_Velocity.y, m_Velocity.z * m_speed);
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("BolSauce"))
+        {
+            m_isSauced = true;
+            coefHand++;
+            Debug.Log("SAUCE: You are saucé de ouf " + coefHand);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Flaque"))
