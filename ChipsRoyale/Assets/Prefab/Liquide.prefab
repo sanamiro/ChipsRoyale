@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7778920521988767554}
   - component: {fileID: 510396407947298373}
+  - component: {fileID: 9045727849003589193}
   m_Layer: 0
-  m_Name: Flaque_Liquide
+  m_Name: Liquide
   m_TagString: Liquide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,8 +44,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.94, y: 0.5, z: 1.76}
-  m_Center: {x: 0.06, y: 0.25, z: 0.06}
+  m_Size: {x: 2.94, y: 0.19674516, z: 1.76}
+  m_Center: {x: 0.059999943, y: 0.09837258, z: 0.060000002}
+--- !u!114 &9045727849003589193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2277781805739259024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbcd395d8e69ecc42b501405ca6bb0e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8745876390532165925
 PrefabInstance:
   m_ObjectHideFlags: 0
