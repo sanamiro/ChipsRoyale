@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void Endgame(int playerId)
+    public IEnumerator Endgame(int playerId)
     {
+        yield return new WaitForSeconds(10.0f);
 
+        SceneManager.LoadScene(0);
     }
 }

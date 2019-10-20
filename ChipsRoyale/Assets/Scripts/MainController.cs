@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour
 {
@@ -9,8 +10,10 @@ public class MainController : MonoBehaviour
     public GameManager gameManager;
     public GameObject ChipsPlayerPrefab;
     public GameObject HandPrefab;
+    public GameObject TextWin;
 
     private List<int> m_playerJoystickList = new List<int>();
+    private PlayAudio m_audioComp;
 
     void Start()
     {
@@ -27,12 +30,15 @@ public class MainController : MonoBehaviour
                 playerCont.GetComponentInChildren<Renderer>().material.color = Color.red;
             }
         }
+
+        if (m_audioComp == null)
+            m_audioComp = Camera.main.GetComponent<PlayAudio>();
     }
 
     void Update()
     {
         float r = Random.Range(0.0f, 1.0f);
-        if (r > 0.99f)
+        if (r > 0.99f && numberOfPlayers > 1)
             SpawnHand();
     }
 
@@ -44,7 +50,11 @@ public class MainController : MonoBehaviour
         {
             int playerWinner = m_playerJoystickList[0];
             Debug.Log("PLAYER " + playerWinner + " WON");
-            SceneManager.LoadScene(0);
+            StartCoroutine(gameManager.Endgame(playerWinner));
+            m_audioComp.PlaySound(PlayAudio.Son.Victory);
+
+            TextWin.SetActive(true);
+            TextWin.GetComponent<Text>().text = "Player " + playerWinner + " Won !";
         }
     }
 

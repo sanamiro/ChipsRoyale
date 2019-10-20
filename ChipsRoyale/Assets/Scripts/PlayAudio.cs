@@ -15,7 +15,8 @@ public class PlayAudio : MonoBehaviour
         WalkLiquide,
         Death,
         ClickMenu,
-        SelectMenu
+        SelectMenu,
+        Victory
     }
 
     public Son son;
@@ -63,6 +64,8 @@ public class PlayAudio : MonoBehaviour
     public UnityEngine.AudioClip audioClip_SelectMenu3;
     public UnityEngine.AudioClip audioClip_SelectMenu4;
     public UnityEngine.AudioClip audioClip_SelectMenu5;
+
+    public UnityEngine.AudioClip audioClip_Victory;
 
     private AudioSource audioSource;
 
@@ -153,6 +156,10 @@ public class PlayAudio : MonoBehaviour
                 else if (r < 0.6f) audioSource.clip = audioClip_SelectMenu3;
                 else if (r < 0.8f) audioSource.clip = audioClip_SelectMenu4;
                 else audioSource.clip = audioClip_SelectMenu5;
+                break;
+
+            case Son.Victory:
+                audioSource.clip = audioClip_Victory;
                 break;
         }
 
