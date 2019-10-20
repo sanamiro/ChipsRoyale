@@ -249,6 +249,7 @@ public class PlayerController : MonoBehaviour
             m_enemyHand = other.gameObject;
             m_isInHand = true;
             m_spamCounter = 0;
+            other.gameObject.GetComponent<HandController>().HandIndic.SetActive(true);
         }
     }
 
@@ -275,7 +276,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("B" + joystick))
             m_spamCounter++;
 
-        if (m_spamCounter > 10 && m_isInHand)
+        if (m_spamCounter > 3 && m_isInHand)
         {
             m_isInHand = false;
             m_healthPoints--;

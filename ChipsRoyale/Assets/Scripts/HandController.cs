@@ -8,6 +8,7 @@ public class HandController : MonoBehaviour
     private bool m_isPickingUp = false;
 
     public GameObject ShadowCreater;
+    public GameObject HandIndic;
 
     void Start()
     {
