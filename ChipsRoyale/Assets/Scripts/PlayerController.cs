@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using XInputDotNetPure;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -167,7 +168,8 @@ public class PlayerController : MonoBehaviour
     {
         m_Velocity = new Vector3(0, 0, 0);
 
-        transform.position = m_enemyHand.transform.position;
+        transform.position = new Vector3(m_enemyHand.transform.position.x, m_enemyHand.transform.position.y - 1.32f, m_enemyHand.transform.position.z);
+        transform.localRotation = new Quaternion(0, -200, 0, 0);
         
         if (Input.GetButtonUp("B" + joystick))
             m_spamCounter++;
@@ -224,5 +226,37 @@ public class PlayerController : MonoBehaviour
                 transform.GetChild(0).GetComponent<MeshFilter>().sharedMesh = chips3hp;
                 break;
         }
+    }
+
+    private IEnumerator MakeControllerVibrate(float vibrationTime)
+    {
+        PlayerIndex joystickIndex = PlayerIndex.One;
+
+        switch (joystick)
+        {
+            case 1:
+                joystickIndex = PlayerIndex.Two;
+                break;
+
+            case 2:
+                joystickIndex = PlayerIndex.Three;
+                break;
+
+            case 3:
+                joystickIndex = PlayerIndex.Four;
+                break;
+
+            case 4:
+                joystickIndex = PlayerIndex.One;
+                break;
+
+            default:
+                break;
+        }
+        GamePad.SetVibration(joystickIndex, 1, 1);
+
+        yield return new WaitForSeconds(vibrationTime);
+        
+        GamePad.SetVibration(joystickIndex, 0, 0);
     }
 }
