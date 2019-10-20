@@ -151,6 +151,10 @@ public class PlayerController : MonoBehaviour
     
         if ((rb.velocity.x != 0 || rb.velocity.z != 0) && !m_isJumping && !m_inTheVerre)
         {
+            if (!GetComponent<ParticleSystem>().isPlaying)
+            {
+                GetComponent<ParticleSystem>().Play();
+            }
             if(audio.son != PlayAudio.Son.WalkTable && audio.son != PlayAudio.Son.WalkSauce && audio.son != PlayAudio.Son.WalkTrail && audio.son != PlayAudio.Son.WalkLiquide) {
                 switch (surface)
                 {
@@ -171,6 +175,10 @@ public class PlayerController : MonoBehaviour
                         break;
                 }
             }
+        }
+        else if (GetComponent<ParticleSystem>().isPlaying)
+        {
+            GetComponent<ParticleSystem>().Stop();
         }
     }
 
