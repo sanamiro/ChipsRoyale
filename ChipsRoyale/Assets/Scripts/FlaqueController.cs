@@ -31,6 +31,8 @@ public class FlaqueController : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
+        transform.localScale -= Vector3.one * (Time.deltaTime / (2 * timerRemoveFlaque));
+
         // Enable the collider 1 second after spawning
         if (timer <= 9f && !col.enabled)
         {
