@@ -5,6 +5,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // Enum
+    private enum Surface
+    {
+        Table,
+        Sauce,
+        Trail,
+        Liquide
+    }
+
+    private Surface surface;
+
     // Prefabs
     public GameObject healthBonus;
     public Mesh chips3hp;
@@ -16,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     // Components
     private Rigidbody rb;
+
+    private PlayAudio audio;
 
     // Variables
     public int joystick;
@@ -46,7 +59,10 @@ public class PlayerController : MonoBehaviour
     {
         m_timerSauce = m_timerSauced;
 
+        surface = Surface.Table;
+
         rb = GetComponent<Rigidbody>();
+        audio = Camera.main.GetComponent<PlayAudio>();
 
         if (Input.GetJoystickNames().Length != 0)
         {
@@ -124,22 +140,57 @@ public class PlayerController : MonoBehaviour
                 m_timerSauce = m_timerSauced;
 
                 coefHand = 1f;
-                Debug.Log("SAUCE: You are not saucé anymore");
+                Debug.Log("SAUCE: false");
             }
         }
 
-        if (m_speed < 0.25f) m_speed = 2f;
-
+        if (surface == Surface.Trail) m_speed = 1f;
+        else m_speed = 2f;
+        
         rb.velocity = new Vector3(m_Velocity.x * m_speed, m_Velocity.y, m_Velocity.z * m_speed);
+    
+        if ((rb.velocity.x != 0 || rb.velocity.z != 0) && !m_isJumping && !m_inTheVerre)
+        {
+            if(audio.son != PlayAudio.Son.WalkTable && audio.son != PlayAudio.Son.WalkSauce && audio.son != PlayAudio.Son.WalkTrail && audio.son != PlayAudio.Son.WalkLiquide) {
+                switch (surface)
+                {
+                    case Surface.Table:
+                        audio.PlaySound(PlayAudio.Son.WalkTable);
+                        break;
+
+                    case Surface.Sauce:
+                        audio.PlaySound(PlayAudio.Son.WalkSauce);
+                        break;
+
+                    case Surface.Trail:
+                        audio.PlaySound(PlayAudio.Son.WalkTrail);
+                        break;
+
+                    case Surface.Liquide:
+                        audio.PlaySound(PlayAudio.Son.WalkLiquide);
+                        break;
+                }
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("BolSauce"))
         {
+            surface = Surface.Sauce;
+
             m_isSauced = true;
             coefHand++;
-            Debug.Log("SAUCE: You are saucé de ouf " + coefHand);
+            Debug.Log("SAUCE: true | " + coefHand);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("BolSauce"))
+        {
+            surface = Surface.Table;
         }
     }
 
@@ -147,14 +198,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Flaque"))
         {
-            m_speed--;
-            Debug.Log("SLOW: Current speed is " + m_speed);
+            surface = Surface.Trail;
         }
 
         if (other.gameObject.tag.Equals("Liquide"))
         {
+            surface = Surface.Liquide;
             m_healthPoints--;
-            Debug.Log("DAMAGE: Current health is " + m_healthPoints);
+            Debug.Log("DAMAGE | HP: " + m_healthPoints);
+
+            audio.PlaySound(PlayAudio.Son.Hurt);
 
             CheckMesh();
         }
@@ -162,7 +215,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals("HealthBonus"))
         {
             m_healthPoints++;
-            Debug.Log("HEALTH: Current health is " + m_healthPoints);
+            Debug.Log("HEALTH | HP: " + m_healthPoints);
+
+            audio.PlaySound(PlayAudio.Son.BonusHP);
 
             Destroy(other.gameObject);
 
@@ -178,9 +233,7 @@ public class PlayerController : MonoBehaviour
             m_inTheVerre = true;
             m_verre = other.gameObject;
 
-            //Vector3 dir = (transform.position - other.transform.position).normalized * 50f;
-            //dir = new Vector3(dir.x, 2f, dir.z);
-            //rb.AddForce(dir, ForceMode.Impulse);
+            audio.PlaySound(PlayAudio.Son.ZoneSafe);
         }
 
         if (other.gameObject.tag.Equals("Hand"))
@@ -195,7 +248,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Flaque"))
         {
-            m_speed++;
+            surface = Surface.Table;
+        }
+
+        if (other.gameObject.tag.Equals("Liquide"))
+        {
+            surface = Surface.Table;
         }
     }
 
@@ -213,7 +271,9 @@ public class PlayerController : MonoBehaviour
         {
             m_isInHand = false;
             m_healthPoints--;
-            Debug.Log("ESCAPED HAND: Current health is " + m_healthPoints);
+            Debug.Log("ESCAPED HAND | HP: " + m_healthPoints);
+
+            audio.PlaySound(PlayAudio.Son.Hurt);
 
             CheckMesh();
         }
@@ -238,6 +298,8 @@ public class PlayerController : MonoBehaviour
             m_mainController = FindObjectOfType<MainController>();
         if (m_mainController != null)
             m_mainController.PlayerDied(joystick);
+
+        audio.PlaySound(PlayAudio.Son.Death);
 
         Destroy(gameObject);
     }
