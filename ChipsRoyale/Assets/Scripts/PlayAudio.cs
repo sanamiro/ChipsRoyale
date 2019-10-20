@@ -72,6 +72,8 @@ public class PlayAudio : MonoBehaviour
     [HideInInspector]
     public bool isPlaying;
 
+    private bool m_priority = false;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -83,15 +85,22 @@ public class PlayAudio : MonoBehaviour
     {
         isPlaying = audioSource.isPlaying;
 
-        if (!isPlaying) son = Son.SelectMenu;
+        if (!isPlaying)
+        {
+            if (son == Son.Victory) m_priority = false;
+
+            son = Son.SelectMenu;
+        }
     }
 
     public void PlaySound(Son s)
     {
+        if (m_priority) return;
+
         son = s;
 
         float r = Random.Range(0f, 1f);
-
+        
         switch (s)
         {
             case Son.ZoneSafe:
@@ -160,6 +169,7 @@ public class PlayAudio : MonoBehaviour
 
             case Son.Victory:
                 audioSource.clip = audioClip_Victory;
+                m_priority = true;
                 break;
         }
 

@@ -33,6 +33,8 @@ public class MainController : MonoBehaviour
                 playerCont.GetComponentInChildren<MeshRenderer>().material = materialList[i];
             }
         }
+
+        m_audioComp = Camera.main.GetComponent<PlayAudio>();
     }
 
     void Update()
