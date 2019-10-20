@@ -13,6 +13,8 @@ public class MenuController : MonoBehaviour
     public Button playButton;
     public Button quitButton;
     public List<GameObject> playerVisuals;
+    public List<GameObject> joinText;
+    public List<GameObject> playerText;
 
     private bool m_GoToCharaSelect = false;
     private bool m_GoToMainMenu = false;
@@ -116,6 +118,9 @@ public class MenuController : MonoBehaviour
                 {
                     m_playerPositionList[playerId - 1] = i;                     //La position du joystick est ajouté à la liste
                     playerVisuals[i].SetActive(true);
+                    joinText[i].SetActive(false);
+                    playerText[i].SetActive(true);
+                    playerText[i].GetComponent<Text>().text = "Controller " + playerId;
                     i = 3;                                                      //On sort de la boucle
                 }
             }
@@ -130,6 +135,8 @@ public class MenuController : MonoBehaviour
         if (m_playerControllerList.Contains(playerId))
         {
             playerVisuals[m_playerPositionList[playerId - 1]].SetActive(false);
+            joinText[m_playerPositionList[playerId - 1]].SetActive(true);
+            playerText[m_playerPositionList[playerId - 1]].SetActive(false);
             m_playerPositionList[playerId - 1] = 0;
             m_playerControllerList.Remove(playerId);
             if (m_playerControllerList.Count < 2)

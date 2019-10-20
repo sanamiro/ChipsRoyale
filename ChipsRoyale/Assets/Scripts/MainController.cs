@@ -24,6 +24,7 @@ public class MainController : MonoBehaviour
             {
                 GameObject playerCont = Instantiate(ChipsPlayerPrefab, this.transform.parent);
                 playerCont.GetComponentInChildren<PlayerController>().joystick = gameManager.playerList[i];
+                playerCont.GetComponentInChildren<Renderer>().material.color = Color.red;
             }
         }
     }
