@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (videoFade)
+        if (videoFade && videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha > 0)
             videoPlayer.GetComponent<VideoPlayer>().targetCameraAlpha--;
     }
 
@@ -41,6 +41,5 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(videoLength);
 
         videoFade = true;
-        videoPlayer.SetActive(false);
     }
 }

@@ -610,7 +610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &158546441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerList: 
   colorList: []
-  videoPlayer: {fileID: 125918237}
+  videoPlayer: {fileID: 158546440}
 --- !u!4 &282745676
 Transform:
   m_ObjectHideFlags: 0
