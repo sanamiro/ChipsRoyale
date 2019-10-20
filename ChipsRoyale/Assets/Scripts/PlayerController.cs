@@ -41,6 +41,12 @@ public class PlayerController : MonoBehaviour
     private bool m_inTheVerre = false;
     private bool m_isSauced = false;
 
+    [HideInInspector]
+    public bool m_canGoInVerre = true;
+
+    private const float m_timerBeforeVerre = 5f;
+    private float m_timerVerre = 0f;
+
     private int m_spamCounter = 0;
     private int m_healthPoints = 3;
 
@@ -58,6 +64,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         m_timerSauce = m_timerSauced;
+        m_timerVerre = m_timerBeforeVerre;
 
         surface = Surface.Table;
 
@@ -142,6 +149,13 @@ public class PlayerController : MonoBehaviour
                 coefHand = 1f;
                 Debug.Log("SAUCE: false");
             }
+        }
+
+        if (!m_canGoInVerre)
+        {
+            m_timerVerre -= Time.deltaTime;
+
+            if (m_timerVerre <= 0f) m_canGoInVerre = true;
         }
 
         if (surface == Surface.Trail) m_speed = 1f;
@@ -234,14 +248,21 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag.Equals("Verre"))
         {
-            other.gameObject.GetComponent<VerreController>().GetChips(gameObject);
-            
-            transform.position = other.transform.position + Vector3.up;
-            rb.isKinematic = true;
-            m_inTheVerre = true;
-            m_verre = other.gameObject;
+            if (m_canGoInVerre)
+            {
+                other.gameObject.GetComponent<VerreController>().GetChips(gameObject);
 
-            audioComp.PlaySound(PlayAudio.Son.ZoneSafe);
+                transform.position = other.transform.position + Vector3.up;
+                rb.isKinematic = true;
+                m_inTheVerre = true;
+                m_verre = other.gameObject;
+
+                audioComp.PlaySound(PlayAudio.Son.ZoneSafe);
+            }
+            else
+            {
+                EjectFromTheVerre(-transform.forward);
+            }
         }
 
         if (other.gameObject.tag.Equals("Hand"))
@@ -294,6 +315,7 @@ public class PlayerController : MonoBehaviour
         rb.isKinematic = false;
         m_inTheVerre = false;
         m_verre = null;
+        m_canGoInVerre = false;
     }
 
     private void DestroyChips()

@@ -68,7 +68,7 @@ public class MenuController : MonoBehaviour
     {
         if (m_GoToCharaSelect)
         {
-            if (mainMenu.transform.localPosition.y < 450)
+            if (mainMenu.transform.localPosition.y < 600)
             {
                 mainMenu.transform.position = new Vector3(mainMenu.transform.position.x, mainMenu.transform.position.y + 3, mainMenu.transform.position.z);
                 charaSelectionMenu.transform.position = new Vector3(charaSelectionMenu.transform.position.x, charaSelectionMenu.transform.position.y + 3, charaSelectionMenu.transform.position.z);
