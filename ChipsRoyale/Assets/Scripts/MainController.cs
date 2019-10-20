@@ -54,13 +54,13 @@ public class MainController : MonoBehaviour
         GameObject lessSaucedChips = null;
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Chips"))
         {
-            float sauce = go.GetComponent<PlayerController>().coefHand;
+            float sauce = go.GetComponentInChildren<PlayerController>().coefHand;
             if (sauce > 1f) {
                 if (mostSaucedChips == null)
                 {
                     mostSaucedChips = go;
                 }
-                else if (sauce > mostSaucedChips.GetComponent<PlayerController>().coefHand)
+                else if (sauce > mostSaucedChips.GetComponentInChildren<PlayerController>().coefHand)
                 {
                     mostSaucedChips = go;
                 }
@@ -71,7 +71,7 @@ public class MainController : MonoBehaviour
                 {
                     lessSaucedChips = go;
                 }
-                else if (sauce < lessSaucedChips.GetComponent<PlayerController>().coefHand)
+                else if (sauce < lessSaucedChips.GetComponentInChildren<PlayerController>().coefHand)
                 {
                     lessSaucedChips = go;
                 }
