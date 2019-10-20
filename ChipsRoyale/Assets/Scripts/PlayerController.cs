@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     // Components
     private Rigidbody rb;
 
-    private PlayAudio audio;
+    private PlayAudio audioComp;
 
     // Variables
     public int joystick;
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
         surface = Surface.Table;
 
         rb = GetComponent<Rigidbody>();
-        audio = Camera.main.GetComponent<PlayAudio>();
+        audioComp = Camera.main.GetComponent<PlayAudio>();
 
         if (Input.GetJoystickNames().Length != 0)
         {
@@ -155,23 +155,23 @@ public class PlayerController : MonoBehaviour
             {
                 GetComponent<ParticleSystem>().Play();
             }
-            if(audio.son != PlayAudio.Son.WalkTable && audio.son != PlayAudio.Son.WalkSauce && audio.son != PlayAudio.Son.WalkTrail && audio.son != PlayAudio.Son.WalkLiquide) {
+            if(audioComp.son != PlayAudio.Son.WalkTable && audioComp.son != PlayAudio.Son.WalkSauce && audioComp.son != PlayAudio.Son.WalkTrail && audioComp.son != PlayAudio.Son.WalkLiquide && audioComp.son != PlayAudio.Son.Hurt) {
                 switch (surface)
                 {
                     case Surface.Table:
-                        audio.PlaySound(PlayAudio.Son.WalkTable);
+                        audioComp.PlaySound(PlayAudio.Son.WalkTable);
                         break;
 
                     case Surface.Sauce:
-                        audio.PlaySound(PlayAudio.Son.WalkSauce);
+                        audioComp.PlaySound(PlayAudio.Son.WalkSauce);
                         break;
 
                     case Surface.Trail:
-                        audio.PlaySound(PlayAudio.Son.WalkTrail);
+                        audioComp.PlaySound(PlayAudio.Son.WalkTrail);
                         break;
 
                     case Surface.Liquide:
-                        audio.PlaySound(PlayAudio.Son.WalkLiquide);
+                        audioComp.PlaySound(PlayAudio.Son.WalkLiquide);
                         break;
                 }
             }
@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
             m_healthPoints--;
             Debug.Log("DAMAGE | HP: " + m_healthPoints);
 
-            audio.PlaySound(PlayAudio.Son.Hurt);
+            audioComp.PlaySound(PlayAudio.Son.Hurt);
 
             CheckMesh();
         }
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
             m_healthPoints++;
             Debug.Log("HEALTH | HP: " + m_healthPoints);
 
-            audio.PlaySound(PlayAudio.Son.BonusHP);
+            audioComp.PlaySound(PlayAudio.Son.BonusHP);
 
             Destroy(other.gameObject);
 
@@ -241,7 +241,7 @@ public class PlayerController : MonoBehaviour
             m_inTheVerre = true;
             m_verre = other.gameObject;
 
-            audio.PlaySound(PlayAudio.Son.ZoneSafe);
+            audioComp.PlaySound(PlayAudio.Son.ZoneSafe);
         }
 
         if (other.gameObject.tag.Equals("Hand"))
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
             m_healthPoints--;
             Debug.Log("ESCAPED HAND | HP: " + m_healthPoints);
 
-            audio.PlaySound(PlayAudio.Son.Hurt);
+            audioComp.PlaySound(PlayAudio.Son.Hurt);
 
             CheckMesh();
         }
@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
         if (m_mainController != null)
             m_mainController.PlayerDied(joystick);
 
-        audio.PlaySound(PlayAudio.Son.Death);
+        audioComp.PlaySound(PlayAudio.Son.Death);
 
         Destroy(gameObject);
     }
